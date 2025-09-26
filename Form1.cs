@@ -17,7 +17,7 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
-        // P/Invoke declarations
+        
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool ReadProcessMemory(
             IntPtr hProcess,
@@ -80,7 +80,7 @@ namespace WinFormsApp1
             Synchronize = 0x00100000
         }
 
-        // Enums for new features
+       
         public enum SearchType
         {
             String,
@@ -110,7 +110,7 @@ namespace WinFormsApp1
             ExecuteWriteCopy = 0x80
         }
 
-        // New structures
+        
         public struct MemoryRegionInfo
         {
             public IntPtr BaseAddress;
@@ -155,9 +155,9 @@ namespace WinFormsApp1
         {
             dataGridViewProcesses.AutoGenerateColumns = false;
             dataGridViewProcesses.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Id", HeaderText = "PID", Width = 60 });
-            dataGridViewProcesses.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "ProcessName", HeaderText = "��lem Ad�", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill });
+            dataGridViewProcesses.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "ProcessName", HeaderText = "lem Ad", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill });
             dataGridViewProcesses.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "MemoryUsage", HeaderText = "Bellek (MB)", Width = 100 });
-            dataGridViewProcesses.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Priority", HeaderText = "�ncelik", Width = 80 });
+            dataGridViewProcesses.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Priority", HeaderText = "ncelik", Width = 80 });
             dataGridViewProcesses.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewProcesses.MultiSelect = false;
 
@@ -174,9 +174,9 @@ namespace WinFormsApp1
         {
             listViewMemory.Columns.Add("Adres", 120);
             listViewMemory.Columns.Add("Ofset", 80);
-            listViewMemory.Columns.Add("Hex De�er", 120);
-            listViewMemory.Columns.Add("ASCII De�er", 120);
-            listViewMemory.Columns.Add("T�r", 100);
+            listViewMemory.Columns.Add("Hex Deer", 120);
+            listViewMemory.Columns.Add("ASCII Deer", 120);
+            listViewMemory.Columns.Add("Tr", 100);
 
             listViewMemory.OwnerDraw = true;
             listViewMemory.FullRowSelect = true;
@@ -218,12 +218,12 @@ namespace WinFormsApp1
         {
             try
             {
-                // CPU Chart
+               
                 if (chartCpu != null)
                 {
                     chartCpu.Series.Clear();
 
-                    // ChartArea kontrol�
+                   
                     if (chartCpu.ChartAreas.Count == 0)
                     {
                         chartCpu.ChartAreas.Add(new ChartArea());
@@ -237,17 +237,16 @@ namespace WinFormsApp1
                     if (chartCpu.ChartAreas.Count > 0)
                     {
                         chartCpu.ChartAreas[0].AxisX.Title = "Zaman";
-                        chartCpu.ChartAreas[0].AxisY.Title = "CPU Kullan�m� (%)";
+                        chartCpu.ChartAreas[0].AxisY.Title = "CPU Kullanm (%)";
                         chartCpu.ChartAreas[0].AxisY.Maximum = 100;
                     }
                 }
 
-                // Memory Chart
                 if (chartMemory != null)
                 {
                     chartMemory.Series.Clear();
 
-                    // ChartArea kontrol�
+                
                     if (chartMemory.ChartAreas.Count == 0)
                     {
                         chartMemory.ChartAreas.Add(new ChartArea());
@@ -261,13 +260,13 @@ namespace WinFormsApp1
                     if (chartMemory.ChartAreas.Count > 0)
                     {
                         chartMemory.ChartAreas[0].AxisX.Title = "Zaman";
-                        chartMemory.ChartAreas[0].AxisY.Title = "Bellek Kullan�m� (MB)";
+                        chartMemory.ChartAreas[0].AxisY.Title = "Bellek Kullanm (MB)";
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Grafikler ayarlan�rken hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Grafikler ayarlanrken hata: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -279,41 +278,41 @@ namespace WinFormsApp1
 
         private void SetupControls()
         {
-            // Search controls
+          
             comboBoxSearchType.Items.AddRange(Enum.GetNames(typeof(SearchType)));
             comboBoxSearchType.SelectedIndex = 0;
 
             comboBoxMemoryRegion.Items.AddRange(Enum.GetNames(typeof(MemoryRegion)));
             comboBoxMemoryRegion.SelectedIndex = 0;
 
-            // Monitoring controls
+          
             numericUpDownInterval.Minimum = 100;
             numericUpDownInterval.Maximum = 5000;
             numericUpDownInterval.Value = 1000;
             numericUpDownInterval.Increment = 100;
 
-            // Memory editor
+           
             listViewChanges.Columns.Add("Adres", 120);
-            listViewChanges.Columns.Add("Eski De�er", 150);
-            listViewChanges.Columns.Add("Yeni De�er", 150);
-            listViewChanges.Columns.Add("Zaman Damgas�", 120);
+            listViewChanges.Columns.Add("Eski Deer", 150);
+            listViewChanges.Columns.Add("Yeni Deer", 150);
+            listViewChanges.Columns.Add("Zaman Damgas", 120);
             listViewChanges.View = View.Details;
             listViewChanges.FullRowSelect = true;
         }
 
         private void SetupContextMenus()
         {
-            // DataGridView context menu
+          
             var gridContextMenu = new ContextMenuStrip();
             gridContextMenu.Items.Add("Yenile", null, (s, e) => btnRefresh_Click(s, e));
-            gridContextMenu.Items.Add("��lemi Sonland�r", null, (s, e) => KillSelectedProcess(s, e));
-            gridContextMenu.Items.Add("Detaylar� G�ster", null, (s, e) => ShowProcessDetails(s, e));
+            gridContextMenu.Items.Add("lemi Sonlandr", null, (s, e) => KillSelectedProcess(s, e));
+            gridContextMenu.Items.Add("Detaylar Gster", null, (s, e) => ShowProcessDetails(s, e));
             dataGridViewProcesses.ContextMenuStrip = gridContextMenu;
 
-            // ListView context menu
+            
             var listContextMenu = new ContextMenuStrip();
-            listContextMenu.Items.Add("Hex G�r�n�m", null, (s, e) => ToggleHexView(s, e));
-            listContextMenu.Items.Add("Belle�i Yeniden Tara", null, (s, e) => RescanMemory(s, e));
+            listContextMenu.Items.Add("Hex Grnm", null, (s, e) => ToggleHexView(s, e));
+            listContextMenu.Items.Add("Bellei Yeniden Tara", null, (s, e) => RescanMemory(s, e));
             listContextMenu.Items.Add("Adresi Kopyala", null, (s, e) => CopyAddress(s, e));
             listViewMemory.ContextMenuStrip = listContextMenu;
         }
@@ -330,7 +329,7 @@ namespace WinFormsApp1
 
         private async Task RefreshProcessListAsync()
         {
-            UpdateStatus("��lemler listeleniyor...", true);
+            UpdateStatus("lemler listeleniyor...", true);
             btnRefresh.Enabled = false;
 
             try
@@ -362,7 +361,7 @@ namespace WinFormsApp1
                 });
 
                 dataGridViewProcesses.DataSource = processes;
-                UpdateStatus($"��lemler y�klendi. Toplam: {processes.Count}");
+                UpdateStatus($"lemler yklendi. Toplam: {processes.Count}");
             }
             catch (Exception ex)
             {
@@ -395,13 +394,12 @@ namespace WinFormsApp1
 
             var selectedRow = dataGridViewProcesses.SelectedRows[0];
 
-            // H�cre say�s�n� kontrol et
+            
             if (selectedRow.Cells.Count < 1) return;
 
-            // H�cre de�erinin null olup olmad���n� kontrol et
+            
             if (selectedRow.Cells[0].Value == null) return;
 
-            // De�erin integer olup olmad���n� kontrol et
             if (!int.TryParse(selectedRow.Cells[0].Value.ToString(), out int processId)) return;
 
             try
@@ -411,7 +409,7 @@ namespace WinFormsApp1
             }
             catch (ArgumentException)
             {
-                UpdateStatus($"Hata: {processId} ID'li i�lem art�k �al��m�yor.");
+                UpdateStatus($"Hata: {processId} ID'li ilem artk almyor.");
             }
             catch (Exception ex)
             {
@@ -422,9 +420,8 @@ namespace WinFormsApp1
         private async Task AnalyzeProcessMemoryAsync(Process process)
         {
             listViewMemory.Items.Clear();
-            UpdateStatus($"{process.ProcessName} belle�i analiz ediliyor...", true);
+            UpdateStatus($"{process.ProcessName} bellei analiz ediliyor...", true);
 
-            // �nceki process handle'� kapat
             if (processHandle != IntPtr.Zero)
             {
                 CloseHandle(processHandle);
@@ -433,7 +430,6 @@ namespace WinFormsApp1
 
             try
             {
-                // Process handle al
                 processHandle = OpenProcess(
                     ProcessAccessFlags.VirtualMemoryRead | ProcessAccessFlags.QueryInformation,
                     false,
@@ -442,7 +438,7 @@ namespace WinFormsApp1
                 if (processHandle == IntPtr.Zero)
                 {
                     var error = Marshal.GetLastWin32Error();
-                    UpdateStatus($"Hata: Process a��lamad�. Hata kodu: {error}");
+                    UpdateStatus($"Hata: Process alamad. Hata kodu: {error}");
                     return;
                 }
 
@@ -452,16 +448,15 @@ namespace WinFormsApp1
                     try
                     {
                         IntPtr baseAddress = process.MainModule.BaseAddress;
-                        byte[] buffer = new byte[128]; // AccessViolationException'ı önlemek için küçültüldü
+                        byte[] buffer = new byte[128]; 
                         int bytesRead;
 
-                        // Bellek okuma işlemi öncesi güvenlik kontrolü
                         if (IsMemoryRegionReadable(baseAddress, buffer.Length) && 
                             SafeReadProcessMemory(processHandle, baseAddress, buffer, buffer.Length, out bytesRead))
                         {
                             for (int i = 0; i < bytesRead; i += 8)
                             {
-                                // Buffer s�n�rlar�n� kontrol et
+                               
                                 if (i + 8 > bytesRead) break;
 
                                 IntPtr currentAddress = IntPtr.Add(baseAddress, i);
@@ -484,7 +479,7 @@ namespace WinFormsApp1
                             var error = new Win32Exception(Marshal.GetLastWin32Error());
                             var errorItem = new ListViewItem("Hata");
                             errorItem.SubItems.Add($"");
-                            errorItem.SubItems.Add($"Bellek okunamad�: {error.Message}");
+                            errorItem.SubItems.Add($"Bellek okunamad: {error.Message}");
                             items.Add(errorItem);
                         }
                     }
@@ -498,7 +493,6 @@ namespace WinFormsApp1
                     return items;
                 });
 
-                // UI g�ncellemesini daha g�venli yap
                 SafeInvoke(() =>
                 {
                     try
@@ -509,11 +503,11 @@ namespace WinFormsApp1
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine($"UI g�ncelleme hatas�: {ex.Message}");
+                        Debug.WriteLine($"UI gncelleme hatas: {ex.Message}");
                     }
                 });
 
-                UpdateStatus($"{process.ProcessName} bellek analizi tamamland�. {memoryItems.Count} kay�t.");
+                UpdateStatus($"{process.ProcessName} bellek analizi tamamland. {memoryItems.Count} kayt.");
             }
             catch (Exception ex)
             {
@@ -563,13 +557,10 @@ namespace WinFormsApp1
 
             var selectedRow = dataGridViewProcesses.SelectedRows[0];
 
-            // H�cre say�s�n� kontrol et
             if (selectedRow.Cells.Count < 1) return;
 
-            // H�cre de�erinin null olup olmad���n� kontrol et
             if (selectedRow.Cells[0].Value == null) return;
 
-            // De�erin integer olup olmad���n� kontrol et
             if (!int.TryParse(selectedRow.Cells[0].Value.ToString(), out int processId)) return;
 
             if (selectedRow.Cells.Count < 2 || selectedRow.Cells[1].Value == null) return;
@@ -577,8 +568,8 @@ namespace WinFormsApp1
             var processName = selectedRow.Cells[1].Value.ToString();
 
             var result = MessageBox.Show(
-                $"{processName} (PID: {processId}) i�lemini sonland�rmak istedi�inize emin misiniz?",
-                "��lem Sonland�rma",
+                $"{processName} (PID: {processId}) ilemini sonlandrmak istediinize emin misiniz?",
+                "lem Sonlandrma",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
@@ -588,12 +579,12 @@ namespace WinFormsApp1
                 {
                     var process = Process.GetProcessById(processId);
                     process.Kill();
-                    UpdateStatus($"{processName} i�lemi sonland�r�ld�.");
+                    UpdateStatus($"{processName} ilemi sonlandrld.");
                     _ = RefreshProcessListAsync();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"��lem sonland�r�lamad�: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"lem sonlandrlamad: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -603,13 +594,10 @@ namespace WinFormsApp1
 
             var selectedRow = dataGridViewProcesses.SelectedRows[0];
 
-            // H�cre say�s�n� kontrol et
             if (selectedRow.Cells.Count < 1) return;
 
-            // H�cre de�erinin null olup olmad���n� kontrol et
             if (selectedRow.Cells[0].Value == null) return;
 
-            // De�erin integer olup olmad���n� kontrol et
             if (!int.TryParse(selectedRow.Cells[0].Value.ToString(), out int processId)) return;
 
             try
@@ -618,7 +606,7 @@ namespace WinFormsApp1
 
                 var detailsForm = new Form
                 {
-                    Text = $"{process.ProcessName} Detaylar� - PID: {process.Id}",
+                    Text = $"{process.ProcessName} Detaylar - PID: {process.Id}",
                     Size = new Size(500, 400),
                     StartPosition = FormStartPosition.CenterParent
                 };
@@ -635,16 +623,15 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Detaylar g�sterilemedi: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Detaylar gsterilemedi: {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // NEW: Memory Search
         private async void buttonSearchMemory_Click(object sender, EventArgs e)
         {
             if (selectedProcess == null || selectedProcess.HasExited)
             {
-                MessageBox.Show("�nce bir i�lem se�in.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("nce bir ilem sein.", "Uyar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -654,11 +641,11 @@ namespace WinFormsApp1
 
             if (string.IsNullOrEmpty(searchValue))
             {
-                MessageBox.Show("Arama de�eri girin.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Arama deeri girin.", "Uyar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            UpdateStatus("Bellekte arama yap�l�yor...", true);
+            UpdateStatus("Bellekte arama yaplyor...", true);
 
             Task.Run(async () =>
             {
@@ -666,7 +653,7 @@ namespace WinFormsApp1
 
                 this.Invoke((MethodInvoker)delegate
                 {
-                    UpdateStatus($"Arama tamamland�. {results.Count} sonu� bulundu.");
+                    UpdateStatus($"Arama tamamland. {results.Count} sonu bulundu.");
                     ShowSearchResults(results);
                 });
             });
@@ -689,18 +676,15 @@ namespace WinFormsApp1
                     {
                         try
                         {
-                            // Daha k���k par�alar halinde belle�i oku
                             IntPtr currentAddress = memRegion.BaseAddress;
                             long regionEnd = memRegion.BaseAddress.ToInt64() + memRegion.RegionSize.ToInt64();
 
                             while (currentAddress.ToInt64() < regionEnd)
                             {
-                                // Daha k���k buffer boyutu kullan
-                                int bufferSize = Math.Min(512, (int)(regionEnd - currentAddress.ToInt64())); // 1KB'l�k par�alar
+                                int bufferSize = Math.Min(512, (int)(regionEnd - currentAddress.ToInt64())); // 1KB'lk paralar
                                 byte[] buffer = new byte[bufferSize];
                                 int bytesRead;
 
-                                // Bellek okuma işlemi öncesi güvenlik kontrolü
                                 if (IsMemoryRegionReadable(currentAddress, buffer.Length) && 
                                     SafeReadProcessMemory(processHandle, currentAddress, buffer, buffer.Length, out bytesRead))
                                 {
@@ -723,25 +707,23 @@ namespace WinFormsApp1
                                 }
                                 else
                                 {
-                                    // Bellek okunamadı, bir sonraki bölgeye geç
                                     bytesRead = bufferSize;
                                 }
 
                                 currentAddress = IntPtr.Add(currentAddress, bytesRead);
 
-                                // Daha uzun bir bekleme ekle
-                                Thread.Sleep(10); // 10ms bekle
+                                Thread.Sleep(10); 
                             }
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine($"Bellek b�lgesi i�lenemedi: {memRegion.BaseAddress.ToString("X16")}, Hata: {ex.Message}");
+                            Debug.WriteLine($"Bellek blgesi ilenemedi: {memRegion.BaseAddress.ToString("X16")}, Hata: {ex.Message}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Arama hatas�: {ex.Message}");
+                    Debug.WriteLine($"Arama hatas: {ex.Message}");
                 }
             });
 
@@ -833,7 +815,7 @@ namespace WinFormsApp1
 
         private List<IntPtr> SearchByteArray(byte[] buffer, string searchValue, IntPtr baseAddress)
         {
-            // Similar to SearchHex but with different input format
+            
             return SearchHex(buffer, searchValue, baseAddress);
         }
 
@@ -875,7 +857,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                UpdateStatus($"Bellek b�lgeleri al�namad�: {ex.Message}");
+                UpdateStatus($"Bellek blgeleri alnamad: {ex.Message}");
             }
 
             return regions;
@@ -885,7 +867,7 @@ namespace WinFormsApp1
         {
             var resultsForm = new Form
             {
-                Text = "Arama Sonu�lar�",
+                Text = "Arama Sonular",
                 Size = new Size(600, 400),
                 StartPosition = FormStartPosition.CenterParent
             };
@@ -897,8 +879,8 @@ namespace WinFormsApp1
                 FullRowSelect = true
             };
             listView.Columns.Add("Adres", 150);
-            listView.Columns.Add("Hex De�er", 200);
-            listView.Columns.Add("ASCII De�er", 200);
+            listView.Columns.Add("Hex Deer", 200);
+            listView.Columns.Add("ASCII Deer", 200);
 
             foreach (var address in results)
             {
@@ -907,7 +889,7 @@ namespace WinFormsApp1
                     byte[] buffer = new byte[16];
                     int bytesRead;
 
-                    // Bellek okuma işlemi öncesi güvenlik kontrolü
+                   
                     if (IsMemoryRegionReadable(address, buffer.Length) && 
                         SafeReadProcessMemory(processHandle, address, buffer, buffer.Length, out bytesRead))
                     {
@@ -923,8 +905,8 @@ namespace WinFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    // Hata durumunda devam et
-                    Debug.WriteLine($"Adres okunamad�: {address.ToString("X16")}, Hata: {ex.Message}");
+                    
+                    Debug.WriteLine($"Adres okunamad: {address.ToString("X16")}, Hata: {ex.Message}");
                 }
             }
 
@@ -932,18 +914,18 @@ namespace WinFormsApp1
             resultsForm.Show();
         }
 
-        // NEW: Memory Monitoring
+      
         private void buttonStartMonitoring_Click(object sender, EventArgs e)
         {
             if (selectedProcess == null || selectedProcess.HasExited)
             {
-                MessageBox.Show("�nce bir i�lem se�in.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("nce bir ilem sein.", "Uyar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (listViewMemory.SelectedItems.Count == 0)
             {
-                MessageBox.Show("�zlenecek bellek adreslerini se�in.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("zlenecek bellek adreslerini sein.", "Uyar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -959,7 +941,7 @@ namespace WinFormsApp1
             buttonStartMonitoring.Enabled = false;
             buttonStopMonitoring.Enabled = true;
 
-            UpdateStatus("Bellek izleme ba�lat�ld�...");
+            UpdateStatus("Bellek izleme balatld...");
 
             monitoringCts = new CancellationTokenSource();
             Task.Run(async () =>
@@ -989,13 +971,10 @@ namespace WinFormsApp1
                 MEMORY_BASIC_INFORMATION mbi;
                 if (VirtualQueryEx(processHandle, address, out mbi, (uint)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION))) != false)
                 {
-                    // Bellek b�lgesinin durumunu kontrol et
-                    if (mbi.State == 0x1000) // MEM_COMMIT
+                    if (mbi.State == 0x1000) 
                     {
-                        // Bellek koruma seviyesini kontrol et
                         if ((mbi.Protect & (uint)MemoryProtection.NoAccess) == 0)
                         {
-                            // Bellek b�lgesinin boyutunu kontrol et
                             long regionEnd = mbi.BaseAddress.ToInt64() + mbi.RegionSize.ToInt64();
                             long addressEnd = address.ToInt64() + size;
 
@@ -1006,7 +985,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Bellek b�lgesi kontrol edilemedi: {address.ToString("X16")}, Hata: {ex.Message}");
+                Debug.WriteLine($"Bellek blgesi kontrol edilemedi: {address.ToString("X16")}, Hata: {ex.Message}");
             }
 
             return false;
@@ -1023,17 +1002,15 @@ namespace WinFormsApp1
             {
                 try
                 {
-                    // Bellek b�lgesinin okunabilir olup olmad���n� kontrol et
                     if (!IsMemoryRegionReadable(address, 8))
                     {
-                        Debug.WriteLine($"Adres okunabilir de�il: {address.ToString("X16")}");
+                        Debug.WriteLine($"Adres okunabilir deil: {address.ToString("X16")}");
                         continue;
                     }
 
                     byte[] buffer = new byte[8];
                     int bytesRead;
 
-                    // Daha g�venli bellek okuma
                     if (IsMemoryRegionReadable(address, buffer.Length) && 
                         SafeReadProcessMemory(processHandle, address, buffer, buffer.Length, out bytesRead))
                     {
@@ -1042,19 +1019,16 @@ namespace WinFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Bellek okunamad�: {address.ToString("X16")}, Hata: {ex.Message}");
+                    Debug.WriteLine($"Bellek okunamad: {address.ToString("X16")}, Hata: {ex.Message}");
                 }
             }
 
-            // Monitoring loop
             while (!token.IsCancellationRequested && selectedProcess != null && !selectedProcess.HasExited)
             {
                 try
                 {
-                    // Her d�ng� ad�m�nda process handle'�n ge�erli olup olmad���n� kontrol et
                     if (processHandle == IntPtr.Zero)
                     {
-                        // Handle'� yeniden al
                         processHandle = OpenProcess(
                             ProcessAccessFlags.VirtualMemoryRead | ProcessAccessFlags.QueryInformation,
                             false,
@@ -1062,7 +1036,7 @@ namespace WinFormsApp1
 
                         if (processHandle == IntPtr.Zero)
                         {
-                            Debug.WriteLine("Process handle yeniden al�namad�");
+                            Debug.WriteLine("Process handle yeniden alnamad");
                             break;
                         }
                     }
@@ -1071,7 +1045,6 @@ namespace WinFormsApp1
                     {
                         try
                         {
-                            // Bellek b�lgesinin okunabilir olup olmad���n� kontrol et
                             if (!IsMemoryRegionReadable(address, 8))
                             {
                                 continue;
@@ -1080,7 +1053,7 @@ namespace WinFormsApp1
                             byte[] buffer = new byte[8];
                             int bytesRead;
 
-                            // Daha g�venli bellek okuma
+                           
                             if (IsMemoryRegionReadable(address, buffer.Length) && 
                                 SafeReadProcessMemory(processHandle, address, buffer, buffer.Length, out bytesRead))
                             {
@@ -1096,7 +1069,7 @@ namespace WinFormsApp1
                                             Timestamp = DateTime.Now
                                         };
 
-                                        // Daha g�venli UI g�ncelleme
+                                       
                                         SafeInvoke(() => AddMemoryChangeToList(change));
 
                                         previousValues[address] = buffer;
@@ -1106,7 +1079,7 @@ namespace WinFormsApp1
                         }
                         catch (AccessViolationException)
                         {
-                            Debug.WriteLine($"Eri�im ihlali: {address.ToString("X16")}");
+                            Debug.WriteLine($"Erişim ihlali: {address.ToString("X16")}");
                         }
                         catch (Exception ex)
                         {
@@ -1116,12 +1089,12 @@ namespace WinFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"�zleme d�ng�s�nde hata: {ex.Message}");
+                    Debug.WriteLine($"izleme döngüsünde hata: {ex.Message}");
                 }
 
                 try
                 {
-                    // Daha g�venli gecikme
+                    
                     await Task.Delay(intervalMs, token).ConfigureAwait(false);
                 }
                 catch (TaskCanceledException)
@@ -1130,7 +1103,7 @@ namespace WinFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Task.Delay hatas�: {ex.Message}");
+                    Debug.WriteLine($"Task.Delay hata: {ex.Message}");
                     break;
                 }
             }
@@ -1141,21 +1114,21 @@ namespace WinFormsApp1
 
             try
             {
-                // Bellek b�lgesinin ge�erli olup olmad���n� kontrol et
+              
                 if (lpBaseAddress == IntPtr.Zero)
                     return false;
 
-                // Bellek b�lgesinin okunabilir olup olmad���n� kontrol et
+               
                 MEMORY_BASIC_INFORMATION mbi;
                 if (VirtualQueryEx(hProcess, lpBaseAddress, out mbi, (uint)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION))) != false)
                 {
-                    if (mbi.State != 0x1000) // MEM_COMMIT
+                    if (mbi.State != 0x1000) 
                         return false;
 
                     if ((mbi.Protect & (uint)MemoryProtection.NoAccess) != 0)
                         return false;
 
-                    // Bellek b�lgesinin boyutunu kontrol et
+                    
                     long regionEnd = mbi.BaseAddress.ToInt64() + mbi.RegionSize.ToInt64();
                     long addressEnd = lpBaseAddress.ToInt64() + dwSize;
 
@@ -1163,17 +1136,17 @@ namespace WinFormsApp1
                         return false;
                 }
 
-                // Belle�i oku
+                
                 return ReadProcessMemory(hProcess, lpBaseAddress, lpBuffer, dwSize, out lpNumberOfBytesRead);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"G�venli bellek okuma hatas�: {ex.Message}");
+                Debug.WriteLine($"Güvenli bellek okuma hata: {ex.Message}");
                 return false;
             }
         }
 
-        // Daha g�venli UI g�ncelleme metodu
+      
         private void SafeInvoke(Action action)
         {
             try
@@ -1188,7 +1161,7 @@ namespace WinFormsApp1
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine($"UI g�ncelleme hatas�: {ex.Message}");
+                            Debug.WriteLine($"UI güncelleme hata: {ex.Message}");
                         }
                     }));
                 }
@@ -1199,7 +1172,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"SafeInvoke hatas�: {ex.Message}");
+                Debug.WriteLine($"SafeInvoke hata: {ex.Message}");
             }
         }
         private void AddMemoryChangeToList(MemoryChange change)
@@ -1218,26 +1191,25 @@ namespace WinFormsApp1
 
             listViewChanges.Items.Insert(0, item);
 
-            // En fazla 1000 de�i�iklik tut
+            
             if (listViewChanges.Items.Count > 1000)
             {
                 listViewChanges.Items.RemoveAt(listViewChanges.Items.Count - 1);
             }
         }
 
-        // NEW: Performance Monitoring
         private void buttonStartPerfMonitoring_Click(object sender, EventArgs e)
         {
             if (selectedProcess == null || selectedProcess.HasExited)
             {
-                MessageBox.Show("�nce bir i�lem se�in.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("önce bir işlem seçin.", "Uyari", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             buttonStartPerfMonitoring.Enabled = false;
             buttonStopPerfMonitoring.Enabled = true;
 
-            UpdateStatus("Performans izleme ba�lat�ld�...");
+            UpdateStatus("Performans izleme başlataldi...");
 
             perfMonitoringCts = new CancellationTokenSource();
             Task.Run(async () =>
@@ -1284,7 +1256,7 @@ namespace WinFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    UpdateStatus($"Performans izleme hatas�: {ex.Message}");
+                    UpdateStatus($"Performans izleme hata: {ex.Message}");
                 }
 
                 try
@@ -1320,24 +1292,24 @@ namespace WinFormsApp1
         {
             try
             {
-                // CPU grafi�ini g�ncelle
+                
                 if (chartCpu != null && chartCpu.Series.Count > 0 && chartCpu.ChartAreas.Count > 0)
                 {
                     chartCpu.Series["CPU"].Points.AddXY(data.Timestamp.ToString("HH:mm:ss"), data.CpuUsage);
 
-                    // En fazla 60 nokta tut
+                    
                     if (chartCpu.Series["CPU"].Points.Count > 60)
                     {
                         chartCpu.Series["CPU"].Points.RemoveAt(0);
                     }
                 }
 
-                // Bellek grafi�ini g�ncelle
+               
                 if (chartMemory != null && chartMemory.Series.Count > 0 && chartMemory.ChartAreas.Count > 0)
                 {
                     chartMemory.Series["Memory"].Points.AddXY(data.Timestamp.ToString("HH:mm:ss"), data.MemoryUsage / 1024 / 1024);
 
-                    // En fazla 60 nokta tut
+                   
                     if (chartMemory.Series["Memory"].Points.Count > 60)
                     {
                         chartMemory.Series["Memory"].Points.RemoveAt(0);
@@ -1346,22 +1318,21 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Performans grafi�i g�ncellenemedi: {ex.Message}");
+                Debug.WriteLine($"Performans grafiği güncellenemedi: {ex.Message}");
             }
         }
 
-        // NEW: Memory Editor
         private void buttonWriteMemory_Click(object sender, EventArgs e)
         {
             if (selectedProcess == null || selectedProcess.HasExited)
             {
-                MessageBox.Show("�nce bir i�lem se�in.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("önce bir işlem seçin.", "Uyari", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (!IntPtr.TryParse(textBoxMemoryAddress.Text, System.Globalization.NumberStyles.HexNumber, null, out IntPtr address))
             {
-                MessageBox.Show("Ge�erli bir bellek adresi girin.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Geçerli bir bellek adresi girin.", "Uyari", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -1377,13 +1348,13 @@ namespace WinFormsApp1
             }
             catch
             {
-                MessageBox.Show("Ge�erli bir hex de�eri girin.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Geçerli bir hex değeri girin.", "Uyari", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (WriteMemory(address, data))
             {
-                MessageBox.Show("Bellek ba�ar�yla g�ncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Bellek başariyla güncellendi.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _ = AnalyzeProcessMemoryAsync(selectedProcess);
             }
         }
@@ -1395,24 +1366,24 @@ namespace WinFormsApp1
 
             try
             {
-                // Bellek b�lgesinin yaz�labilir olup olmad���n� kontrol et
+               
                 if (!IsMemoryRegionWritable(address, data.Length))
                 {
-                    UpdateStatus($"Bellek b�lgesi yaz�labilir de�il: {address.ToString("X16")}");
+                    UpdateStatus($"Bellek bölgesi yazilabilir değil: {address.ToString("X16")}");
                     return false;
                 }
 
-                // Daha g�venli bellek yazma
+              
                 return SafeWriteProcessMemory(processHandle, address, data);
             }
             catch (AccessViolationException ex)
             {
-                UpdateStatus($"Bellek eri�im hatas�: {ex.Message}");
+                UpdateStatus($"Bellek erişim hatasi: {ex.Message}");
                 return false;
             }
             catch (Exception ex)
             {
-                UpdateStatus($"Bellek yazma hatas�: {ex.Message}");
+                UpdateStatus($"Bellek yazma hatasi: {ex.Message}");
                 return false;
             }
         }
@@ -1420,15 +1391,15 @@ namespace WinFormsApp1
         {
             try
             {
-                // Bellek b�lgesinin ge�erli olup olmad���n� kontrol et
+                
                 if (lpBaseAddress == IntPtr.Zero)
                     return false;
 
-                // Bellek b�lgesinin yaz�labilir olup olmad���n� kontrol et
+          
                 MEMORY_BASIC_INFORMATION mbi;
                 if (VirtualQueryEx(hProcess, lpBaseAddress, out mbi, (uint)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION))) != false)
                 {
-                    if (mbi.State != 0x1000) // MEM_COMMIT
+                    if (mbi.State != 0x1000)
                         return false;
 
                     if ((mbi.Protect & (uint)MemoryProtection.ReadWrite) == 0 &&
@@ -1436,13 +1407,13 @@ namespace WinFormsApp1
                         return false;
                 }
 
-                // Belle�i yaz
+                
                 int bytesWritten;
                 return WriteProcessMemory(hProcess, lpBaseAddress, lpBuffer, lpBuffer.Length, out bytesWritten);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"G�venli bellek yazma hatas�: {ex.Message}");
+                Debug.WriteLine($"Güvenli bellek yazma hatasi: {ex.Message}");
                 return false;
             }
         }
@@ -1456,14 +1427,14 @@ namespace WinFormsApp1
                 MEMORY_BASIC_INFORMATION mbi;
                 if (VirtualQueryEx(processHandle, address, out mbi, (uint)Marshal.SizeOf(typeof(MEMORY_BASIC_INFORMATION))) != false)
                 {
-                    // Bellek b�lgesinin durumunu kontrol et
-                    if (mbi.State == 0x1000) // MEM_COMMIT
+                    
+                    if (mbi.State == 0x1000) 
                     {
-                        // Bellek koruma seviyesini kontrol et
+                     
                         if ((mbi.Protect & (uint)MemoryProtection.ReadWrite) != 0 ||
                             (mbi.Protect & (uint)MemoryProtection.ExecuteReadWrite) != 0)
                         {
-                            // Bellek b�lgesinin boyutunu kontrol et
+                           
                             long regionEnd = mbi.BaseAddress.ToInt64() + mbi.RegionSize.ToInt64();
                             long addressEnd = address.ToInt64() + size;
 
@@ -1474,12 +1445,11 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Bellek b�lgesi kontrol edilemedi: {address.ToString("X16")}, Hata: {ex.Message}");
+                Debug.WriteLine($"Bellek blgesi kontrol edilemedi: {address.ToString("X16")}, Hata: {ex.Message}");
             }
 
             return false;
         }
-        // NEW: Process Tree
         private void buttonShowProcessTree_Click(object sender, EventArgs e)
         {
             treeViewProcesses.Nodes.Clear();
@@ -1511,7 +1481,7 @@ namespace WinFormsApp1
                 }
                 catch
                 {
-                    // Skip inaccessible processes
+                    
                 }
             }
 
@@ -1542,18 +1512,17 @@ namespace WinFormsApp1
             }
             catch
             {
-                // Error handling
+          
             }
 
             return 0;
         }
 
-        // NEW: Memory Map
         private void buttonShowMemoryMap_Click(object sender, EventArgs e)
         {
             if (selectedProcess == null || selectedProcess.HasExited)
             {
-                MessageBox.Show("�nce bir i�lem se�in.", "Uyar�", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("önce bir iilem seçin.", "Uyari", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -1565,7 +1534,7 @@ namespace WinFormsApp1
         {
             var mapForm = new Form
             {
-                Text = "Bellek Haritas�",
+                Text = "Bellek Haritasi",
                 Size = new Size(800, 600),
                 StartPosition = FormStartPosition.CenterParent
             };
@@ -1576,11 +1545,11 @@ namespace WinFormsApp1
                 View = View.Details,
                 FullRowSelect = true
             };
-            listView.Columns.Add("Ba�lang�� Adresi", 150);
-            listView.Columns.Add("B�lge Boyutu", 150);
+            listView.Columns.Add("Balang Adresi", 150);
+            listView.Columns.Add("Blge Boyutu", 150);
             listView.Columns.Add("Koruma", 100);
             listView.Columns.Add("Durum", 100);
-            listView.Columns.Add("T�r", 100);
+            listView.Columns.Add("Tür", 100);
 
             foreach (var region in regions)
             {
@@ -1594,7 +1563,7 @@ namespace WinFormsApp1
 
             var exportButton = new Button
             {
-                Text = "D��a Aktar",
+                Text = "Da Aktar",
                 Dock = DockStyle.Bottom
             };
             exportButton.Click += (s, ev) =>
@@ -1628,19 +1597,16 @@ namespace WinFormsApp1
                     }
                 }
 
-                UpdateStatus($"Bellek haritas� d��a aktar�ld�: {filePath}");
+                UpdateStatus($"Bellek haritas da aktarld: {filePath}");
             }
             catch (Exception ex)
             {
-                UpdateStatus($"D��a aktarma hatas�: {ex.Message}");
+                UpdateStatus($"Da aktarma hatas: {ex.Message}");
             }
         }
-
-        // Utility methods
         private void ToggleHexView(object sender, EventArgs e)
         {
-            // Toggle hex view implementation
-            MessageBox.Show("Hex g�r�n�m� de�i�tirilecek", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Hex grnm deitirilecek", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void RescanMemory(object sender, EventArgs e)
@@ -1657,7 +1623,7 @@ namespace WinFormsApp1
             {
                 var address = listViewMemory.SelectedItems[0].Text;
                 Clipboard.SetText(address);
-                UpdateStatus($"Adres kopyaland�: {address}");
+                UpdateStatus($"Adres kopyaland: {address}");
             }
         }
 
