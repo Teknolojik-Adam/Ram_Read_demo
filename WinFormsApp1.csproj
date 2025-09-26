@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="Mono.Cecil" Version="0.11.5" />
+    <PackageReference Include="System.Management" Version="9.0.9" />
+    <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
   </ItemGroup>
 
 </Project>
